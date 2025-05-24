@@ -1,24 +1,26 @@
-const Task = require('../models/taskModel');
+const express = require('express');
+const router = express.Router();
+const controller = require('../controllers/taskController');
 
-exports.getTasks = async (req, res) => {
-  const tasks = await Task.find().sort({ createdAt: -1 });
-  res.render('index', { tasks });
-};
+router.get('/', controller.getTasks);
+router.post('/add', controller.createTask);
 
-exports.createTask = async (req, res) => {
-  const { title } = req.body;
-  await Task.create({ title });
-  res.redirect('/');
-};
+// ✅ Update: Complete the task and set completion time
+router.get('/complete/:id', async (req, res) => {
+  try {
+    const taskId = req.params.id;
+    const Task = require('../models/taskModel');
+    await Task.findByIdAndUpdate(taskId, {
+      isCompleted: true,
+      completedAt: new Date()
+    });
+    res.redirect('/');
+  } catch (err) {
+    console.error('Error completing task:', err);
+    res.status(500).send('Internal Server Error');
+  }
+});
 
-exports.toggleComplete = async (req, res) => {
-  const task = await Task.findById(req.params.id);
-  task.isCompleted = !task.isCompleted;
-  await task.save();
-  res.redirect('/');
-};
+router.get('/delete/:id', controller.deleteTask);
 
-exports.deleteTask = async (req, res) => {
-  await Task.findByIdAndDelete(req.params.id);
-  res.redirect('/');
-};
+module.exports = router;
