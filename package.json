@@ -1,0 +1,27 @@
+{
+  "name": "madia",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "Madia",
+  "license": "ISC",
+  "dependencies": {
+    "@angular/cli": "^19.2.11",
+    "body-parser": "^2.2.0",
+    "dotenv": "^16.5.0",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "mongoose": "^8.14.1"
+  },
+  "description": "it self ammazing package",
+  "repository": {
+    "type": "git",
+    "url": "(index.js)"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
