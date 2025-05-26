@@ -197,6 +197,11 @@
       <button type="submit" aria-label="Add task">Add</button>
     </form>
 
+<form action="/search" method="GET" style="display: flex; gap: 10px;">
+  <input type="date" name="date" required style="padding: 14px 20px; border-radius: 30px; border: 2px solid #ddd; font-size: 1rem; flex-grow: 1;" />
+  <button type="submit" aria-label="Search Tasks">Search</button>
+</form>
+
    <ul>
   <% tasks.forEach(task => { %>
     <li class="<%= task.isCompleted ? 'done' : '' %>">
@@ -215,6 +220,31 @@
       </div>
     </li>
   <% }) %>
+</ul>
+<ul>
+  <% if (tasks.length === 0) { %>
+    <li style="text-align: center; color: #666; font-style: italic; background: #fff0f5;">
+      No tasks assigned.
+    </li>
+  <% } else { %>
+    <% tasks.forEach(task => { %>
+      <!-- <li class="<%= task.isCompleted ? 'done' : '' %>">
+         <div>
+          <span><%= task.title %></span><br />
+          <small style="color:#555; font-size:0.85rem;">
+            Assigned: <%= new Date(task.createdAt).toLocaleString() %><br />
+            <% if(task.isCompleted && task.completedAt) { %>
+              Completed: <%= new Date(task.completedAt).toLocaleString() %>
+            <% } %>
+          </small>
+        </div> -->
+        <!-- <div class="actions">
+          <a href="/complete/<%= task._id %>" title="Mark Complete">&#10003;</a>
+          <a href="/delete/<%= task._id %>" title="Delete Task">&#10005;</a>
+        </div>
+      </li> -->
+    <% }) %>
+  <% } %>
 </ul>
 
   </div>
